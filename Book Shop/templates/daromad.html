@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Daromad va Sof Foyda</h1>
+
+        <form method="GET" action="">
+            <div class="row mb-3">
+                <div class="col-md-5">
+                    <label for="start_date" class="form-label">Boshlanish sanasi</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" required>
+                </div>
+                <div class="col-md-5">
+                    <label for="end_date" class="form-label">Tugash sanasi</label>
+                    <input type="date" id="end_date" name="end_date" class="form-control" required>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Tasdiqlash</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hisobot natijalari</h4>
+
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Tur</th>
+                            <th>Summasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="{% url 'cost_name' %}">Xarid</a></td>
+                            <td>{{ cost_total_sum }} so'm</td>
+                        </tr>
+                        <tr>
+                            <td><a href="{% url 'output_name' %}">Chiqim</a></td>
+                            <td>{{ output_total_sum }} so'm</td>
+                        </tr>
+                        <tr>
+                            <td><a href="{% url 'staff_name' %}">Xodim to'lovlari</a></td>
+                            <td>{{ staff_total_sum }} so'm</td>
+                        </tr>
+                        <tr>
+                            <td><a href="{% url 'home' %}">Sotilgan kitoblar narxi</a></td>
+                            <td>{{ income_total_sum }} so'm</td>
+                        </tr>
+                        <tr class="{% if profit|floatformat:0|add:0 < 0 %}table-danger{% elif profit|floatformat:0|add:0 > 0 %}table-success{% else %}{% endif %}">
+                            <td><strong>Sof Foyda</strong></td>
+                            <td><strong>{{ profit }} so'm</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}

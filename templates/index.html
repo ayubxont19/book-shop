@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="card p-3 mt-3">
+  <form action="" class="d-flex gap-2" method="get">
+    <select name="category" id="" class="form-select">
+      <option value="">Kitob turini tanlang</option>
+      {% for category in book_category %}
+        <option value="{{category.value}}">{{category.value}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" class="btn btn-primary" value="Filtrlash">
+  </form>
+</div>
+
+<div class="container card mt-3">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h3 class="m-0">Kitoblar bo'limi</h3>
+    <a class="btn btn-primary shadow-lg" href="{% url 'bookcreate_name' %}">Yangi kitob</a>
+  </div>
+  
+  <div class="row">
+    {% for book in Kitoblar %}
+      <div class="col-md-3 col-lg-4 mb-3">
+        <div class="card h-100 shadow-lg">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title"><strong>{{ book.name }}</strong></h5>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                
+                <div class="dropdown-menu">
+
+                  <a class="dropdown-item" href="{% url 'bookupdate_name' book.pk %}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                  <a class="dropdown-item" href="{% url 'bookdelete_name' book.id %}"><i class="bx bx-trash me-1"></i> Delete</a>
+                  <a class="dropdown-item" href="{% url 'book_detail' book.id %}"><i class="bx bx-info-circle me-1"></i> More</a>
+                </div>
+              </div>
+            </div>
+            <img class="book-image d-flex mx-auto my-4" src="{{ book.image.url }}" alt="Kitob rasmi">
+            <p class="card-text"><strong>Narxi:</strong> {{ book.price }} so'm</p>
+            <p class="card-text"><strong>Soni:</strong> {{ book.quantity }} ta</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .book-image {
+      width: 103%; /* Kartochka ichiga sig‘ishi uchun */
+      height: 250px; /* Barcha rasmlar bir xil bo‘lishi uchun */
+      object-fit: cover; /* Rasmlarni to‘g‘ri ko‘rsatish */
+      border-radius: 5px; 
+  }
+</style>
+
+{% endblock content %}

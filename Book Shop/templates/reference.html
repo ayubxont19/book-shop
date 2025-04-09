@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card mt-3 p-3">
+    <div class="card-header d-flex align-content-lg-center justify-content-between">
+        <h3>Ma'lumotnoma</h3>
+        <a href="{% url 'reference_create' %}" class="btn btn-primary h-25">Qo'shish</a>
+    </div>
+<div class="col-md mb-4 mb-md-0">
+    <div class="accordion mt-3" id="accordionExample">
+        {% for key, value in reference_values.items %}
+        <div class="card accordion-item">
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion{{ forloop.counter }}" aria-expanded="false" aria-controls="accordion{{ forloop.counter }}">
+                    {{ key }}
+                </button>
+            </h2>
+
+            <div id="accordion{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    {% for item in value %}
+                        <p>{{ item.value }}</p>
+                        <a href="{% url 'reference_delete' item.id %}" class="btn-sm small btn-danger">O'chirish</a>
+                        <a href="{% url "reference_update" item.id %}" class="btn-sm small btn-info">Tahrirlash</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock content %}

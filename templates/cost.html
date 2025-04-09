@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card my-3 pb-3">
+  <div class="container mt-3">
+      <form class="row g-3" method="get">
+          <!-- Nomi bo'yicha filter -->
+          <div class="col-md-2">
+              <input type="text" name="name" class="form-control" id="nameFilter" placeholder="Ismni kiriting">
+          </div>
+
+         
+          <!-- Filtrni qo'llash va tozalash tugmalari -->
+          <div class="d-flex gap-2 mt-3">
+              <button type="submit" class="btn btn-primary">Filtrlash</button>
+              <button name="cost_name" type="submit" class="btn btn-secondary">Tozalash</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+<div class="card mt-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-header">Xarid Bo'limi</h5>
+        <a href="{% url 'costcreate_name' %}" class="btn btn-primary m-3 h-25">Qo'shish</a>
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-bordered table-hover text-center align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Created_at</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+            {% for cost in cost_list %}
+            <tr>
+                <td><strong>{{ cost.name }}</strong></td>
+                <td>{{ cost.price }}</td>
+                <td>{{ cost.quantity }}</td>
+                <td>{{ cost.description }}</td>
+                <td>{{ cost.created_at }}</td>
+                <td>
+                    <div class="btn-group">
+                            <a href="{% url "costupdate_name" cost.pk %}" 
+                                class="btn btn-outline-primary btn-sm">
+                                <i class="bx bx-edit-alt"></i> 
+                            </a>
+                            <button 
+                                class="btn btn-outline-danger btn-sm" 
+                                onclick="if(confirm('Rostdan ham o‘chirmoqchimisiz?')) { window.location.href='{% url "costdelete_name" cost.pk %}'; }">
+                                <i class="bx bx-trash"></i>
+                            </button>
+                        </div>
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock content %}

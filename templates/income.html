@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+<div class="card my-3 pb-3">
+  <div class="container mt-3">
+      <form class="row g-3" method="get">
+          <!-- Nomi bo'yicha filter -->
+          <div class="col-md-2">
+              <input type="text" name="name" class="form-control" id="nameFilter" placeholder="Ismni kiriting">
+          </div>
+
+          <!-- Filtrni qo'llash va tozalash tugmalari -->
+          <div class="d-flex gap-2 mt-3">
+              <button type="submit" class="btn btn-primary">Filtrlash</button>
+              <button name="income_name" type="submit" class="btn btn-secondary">Tozalash</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+<div class="card">
+<div class="table-responsive text-nowrap">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h3 class="m-0">Sotuv bo'limi</h3>
+    <a class="btn btn-primary shadow-lg" href="{% url 'incomecreate_name' %}">Sotuv Qo'shish</a>
+  </div>
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead>
+        <tr>
+          <th>Sold_Book</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Description</th>
+          <th>Created_At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+        {% for income in income_list %}
+          <tr>
+            <td><strong>{{ income.sold_book }}</strong></td>
+                <td>{{ income.price }}</td>
+                <td>{{ income.quantity }}</td>
+                <td>{{ income.description }}</td>
+                <td>{{ income.created_at }}</td>
+                <td>
+                  <div class="btn-group">
+                    <a href="{% url "incomeupdate_name" income.pk %}" 
+                        class="btn btn-outline-primary btn-sm">
+                        <i class="bx bx-edit-alt"></i> 
+                    </a>
+                    <button 
+                        class="btn btn-outline-danger btn-sm" 
+                        onclick="if(confirm('Rostdan ham o‘chirmoqchimisiz?')) { window.location.href='{% url "incomedelete_name" income.pk %}'; }">
+                        <i class="bx bx-trash"></i>
+                    </button>
+                </div>
+              </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
