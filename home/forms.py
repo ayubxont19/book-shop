@@ -40,7 +40,7 @@ class StaffModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  
 
-        self.fields['gender'].queryset = reference.objects.filter(name="Jinsi")  
+        self.fields['gender'].queryset = reference.objects.filter(name="Jinsi", IsDeleted=False)  
 
 class CostModelForm(forms.ModelForm):
 
@@ -75,7 +75,7 @@ class CostModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  
 
-        self.fields['name'].queryset = Book_Model.objects.all()
+        self.fields['name'].queryset = Book_Model.objects.filter(IsDeleted=False)
 
 class OutputForm(forms.ModelForm):
      
@@ -106,7 +106,7 @@ class OutputForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  
 
-        self.fields['name'].queryset = reference.objects.filter(name="Output")  
+        self.fields['name'].queryset = reference.objects.filter(name="Output", IsDeleted=False)  
 
 class BookModelForm(forms.ModelForm):
 
@@ -127,7 +127,7 @@ class BookModelForm(forms.ModelForm):
         super().__init__(*args, **kwargs)  
 
         self.fields['author'].queryset = reference.objects.filter(name="author")
-        self.fields['category'].queryset = reference.objects.filter(name="Kitob turi")
+        self.fields['category'].queryset = reference.objects.filter(name="Kitob turi", IsDeleted=False)
 
 class SotuvModelForm(forms.ModelForm):
 
@@ -159,6 +159,11 @@ class SotuvModelForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  
+
+        self.fields['sold_book'].queryset = Book_Model.objects.filter(IsDeleted=False)
+
 class HodimModelForm(forms.ModelForm):
 
     class Meta:
@@ -175,6 +180,12 @@ class HodimModelForm(forms.ModelForm):
                 'placeholder': 'Enter price',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  
+
+        self.fields['staff'].queryset = Book_Model.objects.filter(IsDeleted=False)
+        
 
 class HodimIshForm(forms.ModelForm):
 
@@ -196,3 +207,8 @@ class HodimIshForm(forms.ModelForm):
                 'placeholder': 'Enter price',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  
+
+        self.fields['staff'].queryset = Book_Model.objects.filter(IsDeleted=False)

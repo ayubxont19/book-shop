@@ -10,6 +10,7 @@ STATUS_CHOICES = [
 class reference(models.Model):
     name = models.CharField(max_length=255, verbose_name="reference nomi")
     value = models.CharField(max_length=255, verbose_name="reference qiymati")
+    IsDeleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.value
