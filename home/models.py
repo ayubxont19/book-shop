@@ -20,9 +20,9 @@ class Book_Model(models.Model):
     category = models.ForeignKey(reference, on_delete=models.CASCADE, related_name="book_category_references")
     author = models.ForeignKey(reference, on_delete=models.CASCADE, related_name="book_author_references")
     price = models.FloatField(verbose_name="Kitob narxi")
-    quantity = models.IntegerField(verbose_name="Kitob soni")
+    quantity = models.IntegerField(verbose_name="Kitob soni", default=0)
     description = models.TextField(verbose_name="Kitob haqida")
-    image = models.ImageField(upload_to="media/", verbose_name="Book rasmi")  
+    image = models.ImageField(upload_to="media/", verbose_name="Kitob rasmi")  
     IsDeleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -35,10 +35,10 @@ class CostModelManager(models.Manager):
 
 class Cost_Model(models.Model):
     name = models.ForeignKey(Book_Model, on_delete=models.CASCADE, verbose_name="Cost nomi", related_name="cost_name_references")
-    price = models.FloatField(verbose_name="Cost narxi")
-    quantity = models.IntegerField(verbose_name="Cost soni")
-    description = models.TextField(verbose_name="Cost haqida")
-    created_at = models.DateField(verbose_name="Cost sanasi")
+    price = models.FloatField(verbose_name="Xarid narxi")
+    quantity = models.IntegerField(verbose_name="Xarid soni")
+    description = models.TextField(verbose_name="Xarid haqida")
+    created_at = models.DateField(verbose_name="Xarid sanasi")
     is_deleted = models.BooleanField(default=False) 
 
     objects = models.Manager() 
@@ -83,9 +83,9 @@ class Income_Model(models.Model):
 
 class Output(models.Model):
     name = models.ForeignKey(reference, on_delete=models.CASCADE)
-    price = models.BigIntegerField(verbose_name="Output narxi")
-    description = models.TextField(verbose_name="Output haqida")
-    created_at = models.DateField(verbose_name="Output sanasi")
+    price = models.BigIntegerField(verbose_name="Chiqim narxi")
+    description = models.TextField(verbose_name="Chiqim haqida")
+    created_at = models.DateField(verbose_name="Chiqim sanasi")
     is_deleted = models.BooleanField(default=False)
 
     objects = models.Manager() 
@@ -110,7 +110,7 @@ class Staff_Model(models.Model):
     gender = models.ForeignKey(reference, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=255 , verbose_name="Xodimning telefon raqami")
     added_at = models.DateField()
-    experience = models.FloatField()
+    experience = models.FloatField(verbose_name="Xodimning tajribasi")
     is_deleted = models.BooleanField(default=False)
 
     objects = models.Manager() 
@@ -134,9 +134,9 @@ class Staff_Model(models.Model):
         return self.full_name
 
 class Staff_work(models.Model):
-    staff = models.ForeignKey(Staff_Model, on_delete=models.CASCADE)
-    time_work = models.IntegerField()
-    price = models.FloatField()
+    staff = models.ForeignKey(Staff_Model, on_delete=models.CASCADE, verbose_name="Xodim")
+    time_work = models.IntegerField("Xodimning ishlagan vaqti")
+    price = models.FloatField(verbose_name="Xodimning xaqqi")
     is_deleted = models.BooleanField(default=False)
 
     objects = models.Manager() 
@@ -157,9 +157,9 @@ class Staff_work(models.Model):
 
 
 class Staff_payments(models.Model):
-    staff = models.ForeignKey(Staff_Model, on_delete=models.CASCADE)
-    price =  models.FloatField(verbose_name="Narxi")
-    created_at = models.DateField(verbose_name="Sana", auto_now_add=True)
+    staff = models.ForeignKey(Staff_Model, on_delete=models.CASCADE, verbose_name="Xodim")
+    price =  models.FloatField(verbose_name="Xodim xaqqi")
+    created_at = models.DateField(verbose_name="Xodim Sanasi", auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
 
     objects = models.Manager() 

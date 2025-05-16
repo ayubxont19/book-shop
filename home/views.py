@@ -110,6 +110,11 @@ def staff_view(request):
         staff_models = staff_models.filter(full_name__icontains=full_name)
     print(staff_models)
 
+    gender = request.GET.get("gender",None)
+    if gender:
+        staff_models = staff_models.filter(gender__value=gender)
+    print(staff_models)
+
     phone_number = request.GET.get("phone_number",None)
     if phone_number:
         staff_models = staff_models.filter(phone_number__icontains=phone_number)
